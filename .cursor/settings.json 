@@ -1,0 +1,23 @@
+{
+    "plugins": {
+      "deploy-on-aws": {
+        "enabled": true
+      },
+      "mongodb": {
+        "enabled": true
+      },
+      "cursor-team-kit": {
+        "enabled": true
+      },
+      "sentry": {
+        "enabled": true
+      },
+      "superpowers": {
+        "enabled": true
+      },
+      "context7-plugin": {
+        "enabled": true
+      }
+    }
+  }
+  
