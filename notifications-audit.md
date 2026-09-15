@@ -30,14 +30,13 @@ Web callers: [src/pages/auth/Login.tsx](wyton-web/src/pages/auth/Login.tsx), [Ve
 
 ---
 
-## 2. Chat (Sendbird-bridged)
+## 2. Chat (Wyton chat platform)
 
 Shared dispatcher `dispatchChatMessagePush` in [controllers/users.js:2470](wyton-api/controllers/users.js) sends **FCM push + in-app** to every channel member except the sender.
 
 | # | Trigger | Channel | Recipient | Controller / Route |
 |---|---|---|---|---|
-| 8 | Sendbird webhook `group_channel:message_send` | Push + In-app | All channel members except sender | `handleSendbirdMessageWebhook` · [controllers/users.js:2606](wyton-api/controllers/users.js); route `POST /webhooks/sendbird/message` ([routes/webhookRoute.js:8](wyton-api/routes/webhookRoute.js)) |
-| 9 | Manual dispatch from web after send | Push + In-app | Recipient user IDs from client | `notifySendbirdChatMessagePush` · [controllers/users.js:2578](wyton-api/controllers/users.js); route `POST /user/sendbird/message-push` |
+| 8 | Manual dispatch from web after send | Push + In-app | Recipient user IDs from client | `notifyChatMessagePush` · [controllers/users.js](wyton-api/controllers/users.js); route `POST /user/chat/message-push` |
 
 Module: `CHAT_MESSAGE`. Android payload is data-only (for Notifee), iOS uses full APNs alert. Deep-links to `/chat-room?channelUrl=…`.
 
@@ -251,7 +250,7 @@ No push or in-app for meetings.
 - **Module → icon** — [src/constants/notificationIcons.ts](wyton-web/src/constants/notificationIcons.ts), constants [notificationModules.ts](wyton-web/src/constants/notificationModules.ts).
 - **Bell mount + 60s polling** — [NewNavbar.tsx](wyton-web/src/components/layout/NewNavbar.tsx) (employees), [VendorNavbar.tsx](wyton-web/src/components/layout/VendorNavbar.tsx) (vendors), legacy [Navbar.tsx](wyton-web/src/components/layout/Navbar.tsx) still present.
 - **Custom UI toast system** — [src/store/slices/uiSlice.ts](wyton-web/src/store/slices/uiSlice.ts), [src/components/common/NotificationSystem.tsx](wyton-web/src/components/common/NotificationSystem.tsx), mounted at [src/App.tsx:111](wyton-web/src/App.tsx). Auto-fires from `handleApiError`/`handleApiSuccess` in [src/services/api.ts](wyton-web/src/services/api.ts).
-- **Chat push bridge** — [src/services/chat.ts](wyton-web/src/services/chat.ts) `notifyChatMessagePushRecipients` → `POST /user/sendbird/message-push`.
+- **Chat push bridge** — [src/services/chat.ts](wyton-web/src/services/chat.ts) `notifyChatMessagePushRecipients` → `POST /user/chat/message-push`.
 
 ---
 
