@@ -20,7 +20,7 @@ Permissions:
 - **admin** — full write + can remove/change Full and Read-only (not Admin/Permanent)
 - **permanent** — send/reply/add like Full; cannot remove or change permissions; cannot be removed/downgraded
 - **full** — comment, react, reply, add participants; first outbound reply promotes to Permanent
-- **readonly** — view emails, comments, shared drafts only
+- **readonly** — view emails + post internal comments only (no reply/forward/star/react on email cards)
 
 On first conversation seed, internal From/To/Cc become **admin**. External From inbound promotes To/Cc internals to **permanent** (Admins unchanged).
 ---
